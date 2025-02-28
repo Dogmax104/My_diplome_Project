@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+@model Arctech_Manufaction_Menedgment.Models.UserArctech;
+
+<section class="text-gray-600 body-font bg-gray-100 text-center">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-12">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                <div style="vertical-align: inherit;">
+                    <div style="vertical-align: inherit;">ARCTECH Podolsk</div>
+                </div>
+                </h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+                <div style="vertical-align: inherit;">
+                    <div style="vertical-align: inherit;">
+                        Пожалуйста, войдите в систему, введя свои данные.
+                        Если у вас нет логина или пароля, обратитесь к менеджеру за помощью.
+                    </div>
+                </div>
+            </p>
+        </div>
+        <form asp-controller="Home" asp-action="Create_Bd_User" method="post" class="lg:px-32 py-8">
+            <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+                <div class="relative flex-grow w-full">
+                    <label for="NameUser" class="leading-7 text-sm text-gray-600">
+                        <font style="vertical-align: inherit;">
+                            <font  style="vertical-align: inherit;">  Логин</font>
+                        </font>
+                    </label>
+                    <input asp-for="NameUser" type="text" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-600 focus:bg-transparent focus:ring-2 focus:ring-orange-300 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <div class="relative flex-grow w-full">
+                    <label for="PasswordUser" class="leading-7 text-sm text-gray-600">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">Пароль</font>
+                        </font>
+                    </label>
+                    <input asp-for="PasswordUser" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-600 focus:bg-transparent focus:ring-2 focus:ring-orange-300 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                </div>
+                <button class="text-white bg-orange-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-800 rounded-l-lg rounded-tr-lg shadow-2xl text-lg">
+                    <div style="vertical-align: inherit;">
+                        <div style="vertical-align: inherit;">ВОЙТИ</div>
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex flex-col text-center w-full mb-12">
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+                <div style="vertical-align: inherit;">
+                    <div style="vertical-align: inherit;">Если у Вас остались вопросы, напишите нам!</div>
+                </div>
+            </p>
+        </div>
+    </div>
+    <form class="lg:px-32 py-8">
+        <label for="chat" class="sr-only">Ваше сообщение</label>
+        <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
+            <button type="button" class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                    <path fill="currentColor" d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z" />
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 1H2a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z" />
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0ZM7.565 7.423 4.5 14h11.518l-2.516-3.71L11 13 7.565 7.423Z" />
+                </svg>
+                <span class="sr-only">Upload image</span>
+            </button>
+            <button type="button" class="p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.408 7.5h.01m-6.876 0h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM4.6 11a5.5 5.5 0 0 0 10.81 0H4.6Z" />
+                </svg>
+                <span class="sr-only">Add emoji</span>
+            </button>
+            <textarea id="chat" rows="1" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-orange-600 focus:border-orange-300 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
+            <button type="submit" class="inline-flex justify-center p-2 text-orange-600 rounded-full cursor-pointer hover:bg-orange-200 dark:text-blue-500 dark:hover:bg-gray-600">
+                <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                </svg>
+                <span class="sr-only">Send message</span>
+            </button>
+        </div>
+    </form>
+</section>
+@* id="full-name" name="full-name"  // для input  для поля name*@
+@* id="email" name="email"  // все тоже самое только для email*@

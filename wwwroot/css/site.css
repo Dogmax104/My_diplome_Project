@@ -1,0 +1,62 @@
+.form-container {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
+    align-items: flex-start; /* Выравнивание по левому краю */
+}
+
+.form-group {
+    display: flex;
+    align-items: center; /* Выровнять элементы по вертикали */
+    margin-bottom: 10px; /* Отступ снизу */
+    margin-left:20px;
+    width: 100%; /* Занимает всю ширину контейнера */
+}
+
+.form-label {
+    flex: 0 0 150px; /* Фиксированная ширина для метки */
+    text-align: left; /* Выровнять текст по левому краю */
+    margin-right: 10px; /* Отступ справа */
+}
+
+.form-input {
+    flex: 1; /* Занимает оставшееся пространство */
+    padding: 5px; /* Внутренний отступ для поля ввода */
+}
+.texth1 {
+    font-size: 25px;
+    color: red;
+}
+
+
+
+
+
+
+
+
+/* Устанавливаем высоту для html и body на 100% высоты видимой области */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Основной контейнер */
+.wrapper {
+    display: flex; /* Используем Flexbox для выравнивания элементов */
+    flex-direction: column; /* Располагаем элементы вертикально */
+    min-height: 80vh; /* Минимальная высота контейнера — 100% высоты видимой области (viewport height) */
+}
+
+/* Контентный блок main */
+main {
+    flex: 1; /* Расширяем main, чтобы занять оставшееся пространство */
+    padding: 1rem; /* Отступы внутри main */
+}
+
+/* Стили для header и footer */
+header, footer {
+    background-color: #f8f9fa; /* Фон для header и footer */
+    /*padding: 1rem;*/ /* Отступы внутри header и footer */
+    text-align: center; /* Выравнивание текста по центру */
+    border: 1px solid #ddd; /* Рамка вокруг header и footer */
+}

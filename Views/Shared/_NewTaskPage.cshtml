@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/scss/_variables.scss" />
+    <link href="~/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Scripts -->
+    <script src="scrypt.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+</head>
+
+@* @section Scripts {
+    <!-- Здесь можно добавить JavaScript или другие скрипты для этой страницы -->
+} *@
+@model Arctech_Manufaction_Menedgment.Models.ProgectModel
+
+
+@* <h4>ProgectModel</h4> *@
+<h1 class="texth1">Заполнение заказа:</h1>
+
+<hr />
+
+
+<div class="row">
+    <div class="col-md-4 form-containet">
+        <form method="post" asp-controller="TaskPage" asp-action="CreateProjectModel" class="form-floating ">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3 form-group" >
+                <label asp-for="NameProjectModel" class="form-label .form-group label ">Имя проекта/ Заказчика</label>
+                <input asp-for="NameProjectModel" type="text" class="form-control   .form-group input" id="formGroupExampleInput" placeholder="Имя проекта/заказчика">
+                <span asp-validation-for="NameProjectModel" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="ClientNameProjectModel" class="form-label  .form-group label">Заказчик: фирма/ответственное лицо за заказ/телефон/адрес</label>
+                <input asp-for="ClientNameProjectModel" type="text" class="form-control .form-group input " id="formGroupExampleInput2" placeholder="Данные по заказчику">
+                <span asp-validation-for="ClientNameProjectModel" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="BeginTime" class="form-label  .form-group label">Дата поступления заказа</label>
+                <input asp-for="BeginTime" type="date" class="form-control .form-group input " placeholder="Дата">
+                <span asp-validation-for="BeginTime" class="text-danger"></span>
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="CoordinationTime" class="form-label  .form-group label">Дата согласования заказа</label>
+                <input asp-for="CoordinationTime" type="date" class="form-control .form-group input " placeholder="Дата">
+            </div>
+            @* Загрузка файла от заказчика; "Прилогаемые файлы от заказчика" *@
+            <div class="mb-3 form-group">
+                <label asp-for="ClientFileProjectModel" class="form-label  .form-group label">Прилогаемые файлы</label>
+                <input asp-for="ClientFileProjectModel" type="file" class="btn btn-primary" multiple>
+                </input>
+            </div>
+            @* Заказ в производство radiobatton;*@
+            <div class="mb-3 form-group">
+                <label asp-for="OrderInManufaction" class="form-label  .form-group label">Заказ в производство</label>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="StatusOrder" class="form-label  .form-group label">Процентное выполнение заказа</label>
+                <input asp-for="StatusOrder" size="3" type="text" class="form-control .form-group input " id="formGroupExampleInput2">
+            </div>
+            <div class="mb-3 form-group">
+                <label asp-for="NotesProjectModel" class="form-label  .form-group label">Примечание к заказу</label>
+                <input asp-for="NotesProjectModel" type="text" class="form-control .form-group input " id="Примечание">
+            </div>
+
+
+
+
+            @* Загрузка файла для согласования; *@
+            @* <div class="mb-3 form-group">
+                <label asp-for="OrderInManufaction" class="form-label  .form-group label">Файлы для согласования</label>
+                <a href="@Url.Action("DownloadPdf", "Project")" class="btn btn-primary">
+                    Download PDF
+                </a>
+            </div> 
+            !!!!! не нужно т.к. файлы для согласования будут в общей таблице для конструктора!!!!!
+            *@
+
+
+
+            @* Это кнопки для сохранения файла; *@
+            
+
+
+            @* <div class="form-group form-control" id="floatingInputValue" placeholder="Имя проекта" >
+                <label asp-for="NameProjectModel" class="control-label"></label>
+                <input asp-for="NameProjectModel" class="form-control" />
+                <span asp-validation-for="NameProjectModel" class="text-danger"></span>
+            </div> *@
+
+
+
+            @* <div class="form-group">
+                <label asp-for="ClientNameProjectModel" class="control-label"></label>
+                <input asp-for="ClientNameProjectModel" class="form-control" />
+                <span asp-validation-for="ClientNameProjectModel" class="text-danger"></span>
+            </div> *@
+            @* <div class="form-group">
+                <label asp-for="BeginTime" class="control-label"></label>
+                <input asp-for="BeginTime" class="form-control" />
+                <span asp-validation-for="BeginTime" class="text-danger"></span>
+            </div> *@
+            @* <div class="form-group">
+                <label asp-for="CoordinationTime" class="control-label"></label>
+                <input asp-for="CoordinationTime" class="form-control" />
+                <span asp-validation-for="CoordinationTime" class="text-danger"></span>
+            </div> *@
+            
+            <div class="mb-3  form-group">
+                <input type="submit" value="Create" class="btn btn-primary form-label  .form-group label " />
+                <a asp-action="MetodBack">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Для заполнения данного поля необходимо взять разметку с bootstrap
+https://getbootstrap.com/docs/5.3/forms/form-control/ *@
+
+@* Скрипты для bootstrap *@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

@@ -1,0 +1,99 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+
+
+
+
+
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 wrapper">
+    <h2 class="text-2xl font-bold mb-4">Проекты</h2>
+    <table id="example" class="table-auto w-full bg-orange-500">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">П/п</th>
+                <th class="px-4 py-2">Id заказа</th>
+                <th class="px-4 py-2">Имя проекта/изделие</th>
+                <th class="px-4 py-2">Заказчик:фирма/ответственное лицо за заказ/телефон/адрес</th>
+                <th class="px-4 py-2">Дата поступления заказа</th>
+                <th class="px-4 py-2">Дата согласования заказа</th>
+                <th class="px-4 py-2">Прилагаемые файлы</th>
+                <th class="px-4 py-2">Файл для согласования</th>
+                <th class="px-4 py-2">Заказ в производство</th>
+                <th class="px-4 py-2">Статус заказа</th>
+                <th class="px-4 py-2">Примечания</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border px-4 py-2">9999999</td>
+                <td class="border px-4 py-2">Garrett Winters</td>
+                <td class="border px-4 py-2">System Architect</td>
+                <td class="border px-4 py-2">Edinburgh</td>
+                <td class="border px-4 py-2">System Architect</td>
+                <td class="border px-4 py-2">Edinburgh</td>
+                <td class="border px-4 py-2">61</td>
+                <td class="border px-4 py-2">2011/04/25</td>
+                <td class="border px-4 py-2">$320,800</td>
+                <td class="border px-4 py-2 align-middle text-xs whitespace-nowrap p-4">
+                    <div class="flex items-center">
+                        <span class="mr-2 text-xs font-medium">30%</span>
+                        <div class="relative w-full">
+                            <div class="w-full bg-gray-200 rounded-sm h-2">
+                                <div class="bg-cyan-600 h-2 rounded-sm" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="flex p-5 items-center gap-0.5 border px-4 py-2">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer
+                bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                           id="multiple_files" type="file" multiple>
+                </td>
+                @* Стиль для того, чтоб в таблице можно было на блюдать полное поле с числами данных на странице *@
+                <style>
+                    .dataTables_length select {
+                        width: 60px; /* Измените значение по вашему усмотрению */
+                        height: 40px; /* Измените значение по вашему усмотрению */
+                        font-size: 14px; /* Измените значение по вашему усмотрению */
+                    }
+                </style>
+            </tr>
+            
+
+
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            // Add any customization options here
+        });
+    });
+</script>
+
