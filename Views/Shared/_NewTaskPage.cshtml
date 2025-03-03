@@ -22,7 +22,6 @@
 } *@
 @model Arctech_Manufaction_Menedgment.Models.ProgectModel
 
-
 @* <h4>ProgectModel</h4> *@
 <h1 class="texth1">Заполнение заказа:</h1>
 
@@ -31,7 +30,7 @@
 
 <div class="row">
     <div class="col-md-4 form-containet">
-        <form method="post" asp-controller="TaskPage" asp-action="CreateProjectModel" class="form-floating ">
+        <form method="post" asp-controller="TaskPage" asp-action="CreateProjectModel" class="form-floating " enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3 form-group" >
                 <label asp-for="NameProjectModel" class="form-label .form-group label ">Имя проекта/ Заказчика</label>
@@ -55,7 +54,7 @@
             @* Загрузка файла от заказчика; "Прилогаемые файлы от заказчика" *@
             <div class="mb-3 form-group">
                 <label asp-for="ClientFileProjectModel" class="form-label  .form-group label">Прилогаемые файлы</label>
-                <input asp-for="ClientFileProjectModel" type="file" class="btn btn-primary" multiple>
+                <input  type="file" name="file" class="btn btn-primary" multiple>
                 </input>
             </div>
             @* Заказ в производство radiobatton;*@

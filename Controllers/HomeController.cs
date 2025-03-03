@@ -2,6 +2,7 @@ using Arctech_Manufaction_Menedgment.Data;
 using Arctech_Manufaction_Menedgment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Arctech_Manufaction_Menedgment.Controllers
@@ -29,7 +30,8 @@ namespace Arctech_Manufaction_Menedgment.Controllers
             //us.RoleUser = "admin";
             //_db.UserArctechs.Add(us);
             //_db.SaveChanges();
-            return View("_TableProject");
+            var data=_db.ProgectModels.Include(p=>p.ClientFileProjectModel).ToList(); // ѕередача в представление данных из базы данных;
+            return View("_TableProject",data);
         }
 
         public IActionResult Index()

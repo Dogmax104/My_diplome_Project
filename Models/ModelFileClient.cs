@@ -8,12 +8,12 @@ namespace Arctech_Manufaction_Menedgment.Models
         [Key]
         public int IdModelFileClient {  get; set; }
         public string NameModelFileClient { get; set; }
-        public byte[] NameModelFile { get; set; }
+        public byte [] NameModelFile { get; set; }
         public DateTime? DateModelFile { get; set; }
 
 
         // созданная связь с внешним ключом
-        public int IdProjectModel {  get; set; }
+        public int IdProjectModel104 {  get; set; }
         public ProgectModel? ProgectModel1 { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace Arctech_Manufaction_Menedgment.Migrations
                     b.Property<DateTime?>("DateModelFile")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IdProjectModel")
+                    b.Property<int>("IdProjectModel104")
                         .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("NameModelFile")
@@ -39,7 +39,7 @@ namespace Arctech_Manufaction_Menedgment.Migrations
 
                     b.HasKey("IdModelFileClient");
 
-                    b.HasIndex("IdProjectModel");
+                    b.HasIndex("IdProjectModel104");
 
                     b.ToTable("ModelFiles");
                 });
@@ -105,7 +105,7 @@ namespace Arctech_Manufaction_Menedgment.Migrations
                 {
                     b.HasOne("Arctech_Manufaction_Menedgment.Models.ProgectModel", "ProgectModel1")
                         .WithMany("ClientFileProjectModel")
-                        .HasForeignKey("IdProjectModel")
+                        .HasForeignKey("IdProjectModel104")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

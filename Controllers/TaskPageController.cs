@@ -20,7 +20,8 @@ namespace Arctech_Manufaction_Menedgment.Controllers
 
 
         // Метод с помощью которого будет создаваться экзэмпляр модели;
-        public async Task <IActionResult> CreateProjectModel(ProgectModel model, IFormFile [] file)
+        [RequestSizeLimit (524128800)]
+        public async Task <IActionResult> CreateProjectModel(ProgectModel model, List<IFormFile> file)
         {
             if (!ModelState.IsValid)
             {
@@ -43,28 +44,33 @@ namespace Arctech_Manufaction_Menedgment.Controllers
             // Добовлениия файл(а)ов в базу данных;
             foreach (var item in file)
             {
-                if(file!=null && file.Length > 0)
+                if(file!=null && file.Count > 0)
                 {
                     using(var memorystream=new MemoryStream())
                     {
                         await item.CopyToAsync(memorystream); // запись файлов в бинарный код
-                        var mod = new ModelFileClient();
-                        mod.NameModelFile=memorystream.ToArray();
-                        mod.NameModelFileClient=item.FileName;
-                        mod.DateModelFile = DateTime.Now;
+                        var mod = new ModelFileClient();    // Создаем объект нового файла
+                        mod.NameModelFile=memorystream.ToArray(); // запись файла в бинарном коде
+                        mod.NameModelFileClient=item.FileName; // запись имени файла
+                        mod.DateModelFile = DateTime.Now; // запись даты создания файла в базе данных
 
                         // устонавливавем связь в базе данных один со многим;
-                        mod.IdProjectModel = modelDataBase.IdProjectModel;
-                        mod.ProgectModel1 = modelDataBase;
+                        mod.IdProjectModel104 = modelDataBase.IdProjectModel;
+                        mod.ProgectModel1 = model;
                         modelDataBase.ClientFileProjectModel.Add(mod);
                     }
                 }
             }
             _db.ProgectModels.Add(modelDataBase); // Добовление в базу данных;
             await _db.SaveChangesAsync(); // Сохранение в базе данных;
-
-            return View("_NewTaskPage");
+            // Список для того, чтоб можно было передать List
+            var projectList = _db.ProgectModels.Include(b=>b.ClientFileProjectModel).ToList();
+            return View("_TableProject",projectList);
         }
+
+
+
+
         public IActionResult NewTaskPage()
         {
             ProgectModel model = new ProgectModel();

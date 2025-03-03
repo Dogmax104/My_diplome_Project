@@ -31,7 +31,7 @@ namespace Arctech_Manufaction_Menedgment.Data
             modelBuilder.Entity<ModelFileClient>()
                 .HasOne(p => p.ProgectModel1) // связь одного
                 .WithMany(t => t.ClientFileProjectModel) // может быть много по этому ссылается на созданную коллекцию;
-                .HasForeignKey(d => d.IdProjectModel); // созданный внешний ключ;
+                .HasForeignKey(d => d.IdProjectModel104); // созданный внешний ключ;
         }
     }
 }

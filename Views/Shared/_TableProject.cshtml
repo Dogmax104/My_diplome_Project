@@ -3,6 +3,7 @@
 *@
 @{
 }
+@model List<ProgectModel>
 
 <head>
     <meta charset="UTF-8">
@@ -23,13 +24,9 @@
 </head>
 
 
-
-
-
-
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 wrapper">
     <h2 class="text-2xl font-bold mb-4">Проекты</h2>
-    <table id="example" class="table-auto w-full bg-orange-500">
+    <table border="1" id="example" class="table-auto w-full bg-orange-500">
         <thead>
             <tr>
                 <th class="px-4 py-2">П/п</th>
@@ -46,47 +43,93 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="border px-4 py-2">9999999</td>
-                <td class="border px-4 py-2">Garrett Winters</td>
-                <td class="border px-4 py-2">System Architect</td>
-                <td class="border px-4 py-2">Edinburgh</td>
-                <td class="border px-4 py-2">System Architect</td>
-                <td class="border px-4 py-2">Edinburgh</td>
-                <td class="border px-4 py-2">61</td>
-                <td class="border px-4 py-2">2011/04/25</td>
-                <td class="border px-4 py-2">$320,800</td>
-                <td class="border px-4 py-2 align-middle text-xs whitespace-nowrap p-4">
-                    <div class="flex items-center">
-                        <span class="mr-2 text-xs font-medium">30%</span>
-                        <div class="relative w-full">
-                            <div class="w-full bg-gray-200 rounded-sm h-2">
-                                <div class="bg-cyan-600 h-2 rounded-sm" style="width: 30%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td class="flex p-5 items-center gap-0.5 border px-4 py-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
-                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer
-                bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           id="multiple_files" type="file" multiple>
-                </td>
-                @* Стиль для того, чтоб в таблице можно было на блюдать полное поле с числами данных на странице *@
-                <style>
-                    .dataTables_length select {
-                        width: 60px; /* Измените значение по вашему усмотрению */
-                        height: 40px; /* Измените значение по вашему усмотрению */
-                        font-size: 14px; /* Измените значение по вашему усмотрению */
+
+            @* Список для вывода данных в таблицу *@
+            @{
+                if (Model ==null)
+                {
+                    <p>нет данных</p>
+                }
+                else
+                {
+                        
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="border px-4 py-2"></td>
+                            <td class="border px-4 py-2">
+                                @{
+                                    @item.IdProjectModel.ToString("D5");
+                                }
+                            </td>
+                            <td class="border px-4 py-2">@item.NameProjectModel</td>
+                            <td class="border px-4 py-2">@item.ClientNameProjectModel</td>
+                            <td class="border px-4 py-2">@item.BeginTime.ToString("dd.MM.yy")</td>
+                            <td class="border px-4 py-2">@item.CoordinationTime.ToString("dd.MM.yy")</td>
+                            <td class="border px-4 py-2">
+                                @foreach (var files in item.ClientFileProjectModel) @*передача файлов*@
+                                {
+                                    <ul style="list-style-type" >
+                                        <list>@files.NameModelFileClient</list>
+                                    </ul>
+                                }
+                            </td>
+                            <td class="border px-4 py-2">Нет файлов</td>  @*Файлы для согласования*@
+                            <td class="border px-4 py-2">@item.OrderInManufaction</td>  
+                            @*Блок статуса заказа*@
+                            <td class="border px-4 py-2 align-middle text-xs whitespace-nowrap p-4">
+                                <div class="flex items-center">
+                                        <span class="mr-2 text-xs font-medium">@item.StatusOrder%</span>
+                                    <div class="relative w-full">
+                                        <div class="w-full bg-gray-200 rounded-sm h-2">
+                                            <div class="bg-cyan-600 h-2 rounded-sm" style="width: 30%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            @*Конец блока статуса заказа *@
+
+                            <td class="flex p-5 items-center gap-0.5 border px-4 py-2">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
+                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple>
+                            </td>
+                        </tr>
                     }
-                </style>
-            </tr>
-            
+                }
+            }
+
+
+
+
+
+
+
+
+
 
 
             <!-- Add more rows as needed -->
         </tbody>
     </table>
+    <style>
+        .dataTables_length select {
+            width: 60px; /* Измените значение по вашему усмотрению */
+            height: 40px; /* Измените значение по вашему усмотрению */
+            font-size: 14px; /* Измените значение по вашему усмотрению */
+        }
+
+        table tbody tr {
+            counter-increment: rowNumber;
+        }
+
+            table tbody tr td:first-child::before {
+                content: counter(rowNumber);
+            }
+
+    </style>
+
+
+
 </div>
 
 <script>
