@@ -57,11 +57,7 @@
                     {
                         <tr>
                             <td class="border px-4 py-2"></td>
-                            <td class="border px-4 py-2">
-                                @{
-                                    @item.IdProjectModel.ToString("D5");
-                                }
-                            </td>
+                            <td class="border px-4 py-2">@item.IdProjectModel.ToString("D5")</td>
                             <td class="border px-4 py-2">@item.NameProjectModel</td>
                             <td class="border px-4 py-2">@item.ClientNameProjectModel</td>
                             <td class="border px-4 py-2">@item.BeginTime.ToString("dd.MM.yy")</td>
@@ -74,36 +70,40 @@
                                     </ul>
                                 }
                             </td>
-                            <td class="border px-4 py-2">Нет файлов</td>  @*Файлы для согласования*@
-                            <td class="border px-4 py-2">@item.OrderInManufaction</td>  
+
+                            @*Начало .. Файлы для согласования*@
+                            <td class="border px-4 py-2">Нет файлов
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
+                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple>
+                            </td>  @*Конец .. Файлы для согласования*@
+                            
+                                @*Запуск в производство*@
+                            <td class="border px-4 py-2">
+                                @{
+                                    if (item.OrderInManufaction == true)
+                                    {
+                                        <img src="@Url.Content("~/Image_project/Ok.jpg")" class="rounded mx-auto d-block" height="30" width="30">
+                                    }
+                                }
+                            </td>  
                             @*Блок статуса заказа*@
                             <td class="border px-4 py-2 align-middle text-xs whitespace-nowrap p-4">
                                 <div class="flex items-center">
                                         <span class="mr-2 text-xs font-medium">@item.StatusOrder%</span>
                                     <div class="relative w-full">
                                         <div class="w-full bg-gray-200 rounded-sm h-2">
-                                            <div class="bg-cyan-600 h-2 rounded-sm" style="width: 30%"></div>
+                                            <div class="bg-cyan-600 h-2 rounded-sm" style="width: @item.StatusOrder%"></div>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             @*Конец блока статуса заказа *@
 
-                            <td class="flex p-5 items-center gap-0.5 border px-4 py-2">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
-                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple>
-                            </td>
+                            <td class="border px-4 py-2"> @item.NotesProjectModel;</td>
                         </tr>
                     }
                 }
             }
-
-
-
-
-
-
-
 
 
 

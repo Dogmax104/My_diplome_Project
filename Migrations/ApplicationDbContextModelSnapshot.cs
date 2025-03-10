@@ -60,7 +60,7 @@ namespace Arctech_Manufaction_Menedgment.Migrations
                     b.Property<byte?>("CoordinationFileProjectModel")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("CoordinationTime")
+                    b.Property<DateTime>("CoordinationTime")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NameProjectModel")
@@ -70,7 +70,7 @@ namespace Arctech_Manufaction_Menedgment.Migrations
                     b.Property<string>("NotesProjectModel")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("OrderInManufaction")
+                    b.Property<bool>("OrderInManufaction")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("StatusOrder")
@@ -83,20 +83,38 @@ namespace Arctech_Manufaction_Menedgment.Migrations
 
             modelBuilder.Entity("Arctech_Manufaction_Menedgment.Models.UserArctech", b =>
                 {
-                    b.Property<string>("NameUser")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordUser")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RoleUser")
+                    b.Property<DateTime>("BeginUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FistNameUser")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("NameUser", "PasswordUser");
+                    b.Property<string>("NameUser")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Namer_for_project")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PasswordUser")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RoleUser")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecondNameUser")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("NameUser", "PasswordUser");
 
                     b.ToTable("UserArctechs");
                 });

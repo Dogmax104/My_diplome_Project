@@ -1,0 +1,313 @@
+﻿<!doctype html>
+<html lang="ru">
+@model Arctech_Manufaction_Menedgment.Models.General_Admin
+@{
+    Layout = null;
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <!-- Scripts -->
+    <script src="scrypt.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <title>Authorization</title>
+</head>
+<body class="grid grid-rows-[auto_1fr_auto] min-h-screen">
+    <header class="text-white body-font bg-gray-800">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <div class="text-white bg-orange-600 border-0 py-1 px-8 focus:outline-none hover:bg-orange-500 rounded-tr-3xl rounded-bl-3xl round text-lg">
+                    <div style="vertical-align: inherit;">
+                        <div style="vertical-align: inherit;">ARCTECH</div>
+                    </div>
+                </div>
+            </a>
+            <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                <a class="mr-5 hover:text-gray-400">
+                    <div style="vertical-align: inherit;">
+                        <div class="text-2xl" style="vertical-align: inherit;"><span class="text-orange-600 font-medium">Admin</span>panel</div>
+                    </div>
+                </a>
+            </nav>
+
+            <button class="inline-flex items-center border-2 py-1 px-3 focus:outline-none hover:bg-orange-600 rounded-l-lg rounded-tr-lg text-white1 mt-4 md:mt-0">
+                <div style="vertical-align: inherit;">
+                    <div style="vertical-align: inherit;">ВЫЙТИ</div>
+                </div>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <section class="text-gray-600 body-font bg-gray-100">
+        <div class="container px-5 py-4 mx-auto overflow-auto">
+            <div class="w-full mx-auto">
+                <div class="flex border-b border-gray-300 justify-center">
+                    <button class="tab-button inline-block text-white border-2 border-white hover:border-orange-500 dark:border-gray-900 dark:bg-gray-900  bg-gray-800
+                            focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-l-lg rounded-tr-lg text-base font-medium px-10 py-2.5 text-center me-3 mb-3"
+                            onclick="openTab(event, 'tab1')">
+                        Пользователи
+                    </button>
+                    <button class="tab-button inline-block text-white border-2 border-white hover:border-orange-500 dark:border-gray-900 dark:bg-gray-900  bg-gray-800
+                            focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-l-lg rounded-tr-lg text-base font-medium px-10 py-2.5 text-center me-3 mb-3 "
+                            onclick="openTab(event, 'tab2')">
+                        Заказы
+                    </button>
+                    <button class="tab-button inline-block text-white border-2 border-white hover:border-orange-500 dark:border-gray-900 dark:bg-gray-900  bg-gray-800
+                            focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-l-lg rounded-tr-lg text-base font-medium px-10 py-2.5 text-center me-3 mb-3 "
+                            onclick="openTab(event, 'tab3')">
+                        Дополнительно
+                    </button>
+                </div>
+                <div id="tab1" class="tabcontent p-4 mx-auto justify-center">
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 ">
+
+                        <div class="flex justify-center">
+                            <table id="example" class="table-auto w-full bg-orange-500 mx-auto">
+                                <thead>
+                                    <tr>
+                                        <th class="px-4 py-2">Номер п.п</th>
+                                        <th class="px-4 py-2">ID</th>
+                                        <th class="px-4 py-2">ТН</th>
+                                        <th class="px-4 py-2">Имя</th>
+                                        <th class="px-4 py-2">Фамилия</th>
+                                        <th class="px-4 py-2">Роль</th>
+                                        <th class="px-4 py-2">Login</th>
+                                        <th class="px-4 py-2">Password</th>
+                                        <th class="px-4 py-2">Время создания</th>
+                                        <th class="px-4 py-2">Редактировать</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2"></td>
+                                        <td class="border px-4 py-2">
+                                            <div x-data="{ open: false }" class="relative">
+                                                <!-- Кнопка -->
+                                                <button @@click="open = !open" class="justify-center transform motion-safe:hover:scale-90 text-4xl text-white bg-gray-800 border-0 py-2 px-8 focus:outline-none hover:bg-orange-600 rounded-l-lg rounded-tr-lg shadow-2xl text-lg">
+                                                    +
+                                                </button>
+
+                                                <!-- Выпадающая форма -->
+                                                <div x-show="open" x-transition @@click.away="open = false" class="absolute top-16 left-0 w-full max-w-lg bg-white border border-4 rounded-lg shadow-lg p-6">
+                                                    <!-- Заголовок -->
+                                                    <div class="flex items-start justify-between p-5 border-b rounded-t">
+                                                        <h3 class="text-xl font-semibold">Новый пользователь</h3>
+                                                        <button @@click="open = false" class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5">
+                                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Форма -->
+                                                    <form class="space-y-4">
+                                                        <div>
+                                                            <label class="text-sm font-medium text-gray-800">Табельный номер</label>
+                                                            <input asp-for="UserGeneral_Admin.Namer_for_project" type="text" class="w-full p-2 border rounded-lg" placeholder="Electronics">
+                                                        </div>
+                                                        <div>
+                                                            <label class="text-sm font-medium text-gray-800">Выбирите значение роли</label>
+                                                            <select asp-for="UserGeneral_Admin.RoleUser">
+                                                                @foreach(var role in ViewBag.ListRole)
+                                                                {
+                                                                    <option value="@role.Value">@role.Text</option>
+                                                                }
+                                                                
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="text-sm font-medium text-gray-800">Имя</label>
+                                                            <input asp-for="UserGeneral_Admin.FistNameUser" type="text" class="w-full p-2 border rounded-lg" placeholder="Electronics">
+                                                        </div>
+                                                        <div>
+                                                            <label class="text-sm font-medium text-gray-800">Фамилия</label>
+                                                            <input asp-for="UserGeneral_Admin.SecondNameUser" type="text" class="w-full p-2 border rounded-lg" placeholder="Electronics">
+                                                        </div>
+                                                        <div>
+                                                            <label class="text-sm font-medium text-gray-800">Login</label>
+                                                            <input asp-for="UserGeneral_Admin.NameUser" type="text" class="w-full p-2 border rounded-lg" placeholder="Electronics">
+                                                        </div>
+                                                        <button asp-action="AddUserArctech" class="w-full bg-gray-800 hover:bg-orange-500 text-white font-medium rounded-l-lg rounded-tr-lg px-5 py-2.5 text-center">
+                                                            Добавить
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @foreach(var t in Model.ListUser)
+                                    {
+                                        <tr>
+                                            <td class="border px-4 py-2"></td>
+                                            <td class="border px-4 py-2">@t.Id</td>
+                                            <td class="border px-4 py-2">@t.Namer_for_project</td>
+                                            <td class="border px-4 py-2">@t.FistNameUser</td>
+                                            <td class="border px-4 py-2">@t.SecondNameUser</td>
+                                            <td class="border px-4 py-2">@t.RoleUser.ToString()</td>
+                                            <td class="border px-4 py-2">@t.NameUser</td>
+                                            <td class="border px-4 py-2">@t.PasswordUser</td>
+                                            <td class="border px-4 py-2">@t.BeginUser.ToString("dd.MM.yyyy")</td>
+                                            <td class="border px-4 py-2">
+                                                <div class="inline-flex items-center rounded-md shadow-sm">
+                                                    <button class="text-gray-800  text-sm bg-white hover:bg-gray-300 border border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                                 stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                            </svg>
+                                                        </span>
+                                                        <span class="hidden md:inline-block">Edit</span>
+                                                    </button>
+                                                    <button class="text-gray-800  text-sm bg-white hover:bg-orange-300 border-y border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                                 stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            </svg>
+                                                        </span>
+
+                                                        <span class="hidden md:inline-block">Delete</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*Скрип для нумерации строк в таблице*@
+                    <script>
+                        $(document).ready(function () {
+                            $('#example').DataTable({
+                                "columnDefs": [{
+                                    "targets": 0, // Колонка для нумерации
+                                    "orderable": false, // Запрет сортировки
+                                    "searchable": false, // Запрет поиска
+                                    "render": function (data, type, row, meta) {
+                                        if (meta.row >= 1) { // Начиная с третьей строки (индекс строки 2)
+                                            return meta.row - 0; // Нумерация с "1"
+                                        }
+                                        return ""; // Пусто для первых двух строк
+                                    }
+                                }]
+                            });
+                        });
+                    </script>
+
+                    <style>
+                        .dataTables_length select {
+                            width: 100px; /* Измените значение по вашему усмотрению */
+                            height: 40px; /* Измените значение по вашему усмотрению */
+                            font-size: 14px; /* Измените значение по вашему усмотрению */
+                        }
+                    </style>
+
+                </div>
+                <div id="tab2" class="tabcontent p-4 hidden">
+                    <h2 class="text-lg font-bold text-gray-800">Tab 2 Content</h2>
+                    <p class="mt-2 text-gray-700">
+                        Duis lobortis velit tellus, eget luctus tellus facilisis eget. Maecenas non massa
+                        varius, molestie lorem eget, molestie nisi. Suspendisse potenti.
+                    </p>
+                </div>
+                <div id="tab3" class="tabcontent p-4 hidden">
+                    <h2 class="text-lg font-bold text-gray-800">Tab 3 Content</h2>
+                    <p class="mt-2 text-gray-700">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel enim euismod,
+                        imperdiet felis vel, ultrices risus. Sed nec quam id elit fringilla blandit a a risus.
+                    </p>
+                </div>
+            </div>
+
+            <style>
+                .active-tab {
+                @@apply bg-orange-600 border-orange-600 text-white;
+                }
+            </style>
+
+            <script>
+                function openTab(evt, tabName) {
+                    var i, tabcontent, tablinks;
+
+                    // Скрываем все вкладки
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].classList.add("hidden");
+                    }
+
+                    // Убираем активный стиль у всех кнопок
+                    tablinks = document.querySelectorAll(".tab-button");
+                    tablinks.forEach(button => {
+                        button.classList.remove("bg-orange-600", "border-orange-600");
+                        button.classList.add("bg-gray-800", "border-white"); // Возвращаем стандартные стили
+                    });
+
+                    // Показываем выбранную вкладку
+                    document.getElementById(tabName).classList.remove("hidden");
+
+                    // Добавляем активный стиль текущей кнопке
+                    evt.currentTarget.classList.add("bg-orange-600", "border-orange-600");
+                    evt.currentTarget.classList.remove("bg-gray-800", "border-white"); // Убираем старые стили
+                }
+
+                // Устанавливаем tab1 активным при загрузке страницы
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.getElementById("tab1").classList.remove("hidden"); // Отображаем tab1
+                    let firstTabButton = document.querySelector(".tab-button");
+                    firstTabButton.classList.add("bg-orange-600", "border-orange-600");
+                    firstTabButton.classList.remove("bg-gray-800", "border-white");
+                });
+            </script>
+
+        </div>
+        <!-- Подключение Alpine.js -->
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    </section>
+
+    <footer class="text-gray-600 body-font bg-gray-800 w-full">
+        <div class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
+            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <div class="text-white bg-orange-600 border-0 py-1 px-8 focus:outline-none hover:bg-orange-500 rounded-tr-3xl rounded-bl-3xl round text-lg">
+                    <div style="vertical-align: inherit;">
+                        <div style="vertical-align: inherit;">ARCTECH</div>
+                    </div>
+                </div>
+            </a>
+            <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
+                <div style="vertical-align: inherit;">
+                    <div style="vertical-align: inherit;">© 2020 Arctech — </div>
+                </div>
+                <a class="ml-3 text-gray-500 px-8">
+                    +0 999 888 77 66
+                </a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

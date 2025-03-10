@@ -6,8 +6,6 @@ namespace Arctech_Manufaction_Menedgment.Models
     {
         [Key]
         public int IdProjectModel { get; set; }
-
-
         [Required (ErrorMessage ="Поле для обязательного заполнения")]
         public string NameProjectModel { get; set; }
         [Required (ErrorMessage ="Поле для обязательного заполнения")]
@@ -18,8 +16,8 @@ namespace Arctech_Manufaction_Menedgment.Models
         // Коллекция файлов, которые будут прикреплены в таблице;
         public ICollection <ModelFileClient>? ClientFileProjectModel { get; set; }
         public byte? CoordinationFileProjectModel { get; set; }
-        public bool? OrderInManufaction {  get; set; } // Заказ в производство
-        public int? StatusOrder {  get; set; }
+        public bool OrderInManufaction {  get; set; } // Заказ в производство
+        public int? StatusOrder {  get; set; } 
         public string? NotesProjectModel { get; set; }
 
         public string Converting(int idpoject)

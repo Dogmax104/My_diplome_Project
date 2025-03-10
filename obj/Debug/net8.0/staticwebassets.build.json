@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uIz8s1mzuoTlapn5v+Ymjiwu3NvRvYoWbDuufezDslk=",
+  "Hash": "ETdzA+09cmh4ROTrbp2gKDQ4AAKNTP/WFOCr2iCJ4wI=",
   "Source": "Arctech_Manufaction_Menedgment",
   "BasePath": "_content/Arctech_Manufaction_Menedgment",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\БГУИР\\Моя учеба\\Диплом\\Project\\Arctech_Manufaction_Menedgment\\wwwroot\\Image_project\\Ok.jpg",
+      "SourceId": "Arctech_Manufaction_Menedgment",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\БГУИР\\Моя учеба\\Диплом\\Project\\Arctech_Manufaction_Menedgment\\wwwroot\\",
+      "BasePath": "_content/Arctech_Manufaction_Menedgment",
+      "RelativePath": "Image_project/Ok.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Image_project\\Ok.jpg"
     },
     {
       "Identity": "D:\\БГУИР\\Моя учеба\\Диплом\\Project\\Arctech_Manufaction_Menedgment\\wwwroot\\js\\site.js",

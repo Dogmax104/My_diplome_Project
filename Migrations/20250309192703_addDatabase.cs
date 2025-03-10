@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Arctech_Manufaction_Menedgment.Migrations
 {
     /// <inheritdoc />
-    public partial class migration1 : Migration
+    public partial class addDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,9 +20,9 @@ namespace Arctech_Manufaction_Menedgment.Migrations
                     NameProjectModel = table.Column<string>(type: "TEXT", nullable: false),
                     ClientNameProjectModel = table.Column<string>(type: "TEXT", nullable: false),
                     BeginTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CoordinationTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    CoordinationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CoordinationFileProjectModel = table.Column<byte>(type: "INTEGER", nullable: true),
-                    OrderInManufaction = table.Column<bool>(type: "INTEGER", nullable: true),
+                    OrderInManufaction = table.Column<bool>(type: "INTEGER", nullable: false),
                     StatusOrder = table.Column<int>(type: "INTEGER", nullable: true),
                     NotesProjectModel = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -35,14 +35,20 @@ namespace Arctech_Manufaction_Menedgment.Migrations
                 name: "UserArctechs",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Namer_for_project = table.Column<int>(type: "INTEGER", nullable: false),
+                    FistNameUser = table.Column<string>(type: "TEXT", nullable: false),
+                    SecondNameUser = table.Column<string>(type: "TEXT", nullable: false),
                     NameUser = table.Column<string>(type: "TEXT", nullable: false),
                     PasswordUser = table.Column<string>(type: "TEXT", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
-                    RoleUser = table.Column<string>(type: "TEXT", nullable: false)
+                    BeginUser = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    RoleUser = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserArctechs", x => new { x.NameUser, x.PasswordUser });
+                    table.PrimaryKey("PK_UserArctechs", x => x.Id);
+                    table.UniqueConstraint("AK_UserArctechs_NameUser_PasswordUser", x => new { x.NameUser, x.PasswordUser });
                 });
 
             migrationBuilder.CreateTable(

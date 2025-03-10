@@ -23,9 +23,14 @@ namespace Arctech_Manufaction_Menedgment.Data
         {
             base.OnModelCreating(modelBuilder); // Вызов базовой реализации
 
+            // создание id чтоб автоматически было заполнение id номера
+            modelBuilder.Entity<UserArctech>().HasKey(x => x.Id); // создание первичного ключа
+            modelBuilder.Entity<UserArctech>().Property(u => u.Id).ValueGeneratedOnAdd();
+
             // создание составного ключа
             modelBuilder.Entity<UserArctech>()
-                .HasKey(u => new { u.NameUser, u.PasswordUser });
+                .HasAlternateKey(u => new { u.NameUser, u.PasswordUser });
+
 
             // вот сам метод который определяет один ко многим;
             modelBuilder.Entity<ModelFileClient>()
