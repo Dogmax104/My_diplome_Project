@@ -23,9 +23,16 @@ namespace Arctech_Manufaction_Menedgment.Controllers
             _logger = logger;
             _db = db;
         }
+
+        // Метод который создаст новую загрузочную страницу для выбора авторизации и удаляет Cookies;
+        public IActionResult StartAfterPage()
+        {
+            HttpContext.Response.Cookies.Delete("Role");
+            return View("HomeStartPage");
+        }
+
         // Метод для добовления в базу данных нового пользователя;
-        // Нужно переделать метод для того, чтоб можно было зайти и авторизоваться;
-        public async Task <IActionResult> Create_Bd_User(UserArctech userarctech)
+        public async Task<IActionResult> Create_Bd_User(UserArctech userarctech)
         {
             // проверка при входе в систему;
             if (await CheckUser(userarctech.NameUser, userarctech.PasswordUser))
@@ -44,18 +51,44 @@ namespace Arctech_Manufaction_Menedgment.Controllers
                     });
 
                 // Переход согласно заданной роли
-                ViewBag.Role = userarctech.RoleUser;
+                ViewBag.Role = userarctech.RoleUser.ToString();
 
-                var data=_db.ProgectModels.Include(p=>p.ClientFileProjectModel).ToList(); // Передача в представление данных из базы данных;
-                return View("_TableProject",data);
+                //Проверить и через роль выложить данные которые только с прогрессом более 50%
+                if(ViewBag.Role == "shop_worker")
+                {
+                    List<ProgectModel>mod = new List<ProgectModel>();
+                    foreach(var t in _db.ProgectModels.Include(n=>n.ClientFileProjectModel))
+                    {
+                        if(t.OrderInManufaction)
+                            mod.Add(t);
+                    }
+                    return View("_TableProject", mod);
+                }
+
+                var data = _db.ProgectModels.Include(p => p.ClientFileProjectModel).ToList(); // Передача в представление данных из базы данных;
+                return View("_TableProject", data);
             }
-            else return  View("Index");
+            else return View("Index");
         }
 
         public IActionResult Index()
         {
             HttpContext.Response.Cookies.Delete("Role");
             return View();
+        }
+        
+        // Дополнительный метод который сохраняет значения cookies;
+        public IActionResult IndexCookies()
+        {
+            // получаю и передаю значение роли при переходе со страницы;
+            string? roleuser = Request.Cookies["Role"];
+            ViewBag.Role = roleuser;
+            if (roleuser != null)
+            {
+                UserArctech us=new UserArctech();
+                return View("Index", us);
+            }
+            return View("Index");
         }
 
         public IActionResult Privacy()

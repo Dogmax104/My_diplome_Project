@@ -43,10 +43,13 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-
+// запрос для загрузки начальной страницы;
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=StartAfterPage}/{id?}");
 
 app.Run();
 

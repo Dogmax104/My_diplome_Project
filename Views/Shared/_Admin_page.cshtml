@@ -1,8 +1,11 @@
-﻿<!doctype html>
+﻿
+<!doctype html>
+<title>_Admin_page</title>
 <html lang="ru">
 @model Arctech_Manufaction_Menedgment.Models.General_Admin
 @{
     Layout = null;
+    @using Microsoft.AspNetCore.Mvc.Rendering
 }
 <head>
     <meta charset="UTF-8">
@@ -13,20 +16,22 @@
     <script src="scrypt.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
-
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Authorization</title>
 </head>
+
 <body class="grid grid-rows-[auto_1fr_auto] min-h-screen">
     <header class="text-white body-font bg-gray-800">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
             <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                 <div class="text-white bg-orange-600 border-0 py-1 px-8 focus:outline-none hover:bg-orange-500 rounded-tr-3xl rounded-bl-3xl round text-lg">
                     <div style="vertical-align: inherit;">
-                        <div style="vertical-align: inherit;">ARCTECH</div>
+                        <a asp-controller="Home" asp-action="IndexCookies">
+                            <div style="vertical-align: inherit;">ARCTECH</div>
+                        </a>
                     </div>
                 </div>
             </a>
@@ -40,7 +45,9 @@
 
             <button class="inline-flex items-center border-2 py-1 px-3 focus:outline-none hover:bg-orange-600 rounded-l-lg rounded-tr-lg text-white1 mt-4 md:mt-0">
                 <div style="vertical-align: inherit;">
-                    <div style="vertical-align: inherit;">ВЫЙТИ</div>
+                    <a asp-controller="Home" asp-action="Index">
+                        <div style="vertical-align: inherit;">ВЫЙТИ</div>
+                    </a>
                 </div>
                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -48,7 +55,6 @@
             </button>
         </div>
     </header>
-
     <section class="text-gray-600 body-font bg-gray-100">
         <div class="container px-5 py-4 mx-auto overflow-auto">
             <div class="w-full mx-auto">
@@ -63,6 +69,7 @@
                             onclick="openTab(event, 'tab2')">
                         Заказы
                     </button>
+
                     <button class="tab-button inline-block text-white border-2 border-white hover:border-orange-500 dark:border-gray-900 dark:bg-gray-900  bg-gray-800
                             focus:ring-4 focus:outline-none focus:ring-gray-100 rounded-l-lg rounded-tr-lg text-base font-medium px-10 py-2.5 text-center me-3 mb-3 "
                             onclick="openTab(event, 'tab3')">
@@ -85,7 +92,7 @@
                                         <th class="px-4 py-2">Login</th>
                                         <th class="px-4 py-2">Password</th>
                                         <th class="px-4 py-2">Время создания</th>
-                                        <th class="px-4 py-2">Редактировать</th>
+                                        <th class="px-4 py-2" width="230">Редактировать </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -106,6 +113,7 @@
                                                     +
                                                 </button>
 
+                                                @* Блок всплывающего окна для того чтоб можно создать пользователя *@
                                                 <!-- Выпадающая форма -->
                                                 <div x-show="open" x-transition @@click.away="open = false" class="absolute top-16 left-0 w-full max-w-lg bg-white border border-4 rounded-lg shadow-lg p-6">
                                                     <!-- Заголовок -->
@@ -127,11 +135,10 @@
                                                         <div>
                                                             <label class="text-sm font-medium text-gray-800">Выбирите значение роли</label>
                                                             <select asp-for="UserGeneral_Admin.RoleUser">
-                                                                @foreach(var role in ViewBag.ListRole)
+                                                                @foreach (var role in Model.RoleEnum)
                                                                 {
                                                                     <option value="@role.Value">@role.Text</option>
                                                                 }
-                                                                
                                                             </select>
                                                         </div>
                                                         <div>
@@ -154,21 +161,55 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @foreach(var t in Model.ListUser)
+
+                                    @* Добовляем форму чтоб можно было редактировать таблицу прямо в таблице *@
+                                    @* Отражение в таблице значения данных об пользователе; *@
+                                    @foreach (var t in Model.ListUser)
                                     {
-                                        <tr>
-                                            <td class="border px-4 py-2"></td>
-                                            <td class="border px-4 py-2">@t.Id</td>
-                                            <td class="border px-4 py-2">@t.Namer_for_project</td>
-                                            <td class="border px-4 py-2">@t.FistNameUser</td>
-                                            <td class="border px-4 py-2">@t.SecondNameUser</td>
-                                            <td class="border px-4 py-2">@t.RoleUser.ToString()</td>
-                                            <td class="border px-4 py-2">@t.NameUser</td>
-                                            <td class="border px-4 py-2">@t.PasswordUser</td>
-                                            <td class="border px-4 py-2">@t.BeginUser.ToString("dd.MM.yyyy")</td>
+                                        <tr x-data="{editing: false}" >
+                                            <td class="border px-4 py-2"></td>              @* нумерация строки *@
+                                            <td class="border px-4 py-2">
+                                                @t.Id.ToString("D5")
+                                                <input type="hidden" name="UserArctech.Id" value="@t.Id" />
+                                            </td>                                           @* скрытое отправление Id *@
+                                            <td class="border px-4 py-2">
+                                                <span x-show="!editing">@t.Namer_for_project</span>   @* для просмотра *@
+                                                <input type="text" x-show="editing" id="Namer_for_projectskript_@t.Id" name="UserArctech.Namer_for_project" value="@t.Namer_for_project" /> @* значение которое будет отражаться после нажатия на кнопку редоктировать *@
+                                            </td>                                           @* табельный номер пользователя *@
+                                            <td class="border px-4 py-2">
+                                                <span x-show="!editing">@t.FistNameUser</span>
+                                                <input type="text" x-show="editing" id="FistNameUserskr_@t.Id" name="UserArctech.FistNameUser" value="@t.FistNameUser" />
+                                            </td>                                           @* Имя пользователя *@
+                                            <td class="border px-4 py-2">
+                                                <span x-show="!editing">@t.SecondNameUser</span>
+                                                <input type="text" x-show="editing" id="SecondNameUserskr_@t.Id" name="UserArctech.SecondNameUser" value="@t.SecondNameUser" />
+                                            </td>                                           @* Фамилия пользователя *@
+                                            <td class="border px-4 py-2">
+                                                <span x-show="!editing">@t.RoleUser.ToString()</span>
+                                                <select asp-for="@t.RoleUser" id="RoleUserscr_@t.Id" x-show="editing">@t.RoleUser
+                                                    @foreach(var i in Model.RoleEnum)
+                                                    {
+                                                        <option value="@i.Value">@i.Text</option>
+                                                    }
+                                                </select>
+                                            </td>                                           @* Роль пользователя *@
+                                            <td class="border px-4 py-2">
+                                                <span x-show="!editing">@t.NameUser</span>
+                                                <input x-show="editing" id="NameUserskr_@t.Id" name="UserArctech.NameUser" value="@t.NameUser" />
+                                            </td>                                           @* Логин пользователя *@
+                                            <td class="border px-4 py-2">
+                                                <span x-show="!editing">@t.PasswordUser</span>
+                                                <input x-show="editing" type="text" id="PasswordUserskr_@t.Id" name="UserArctech.PasswordUser" value="@t.PasswordUser" />
+                                            </td>                                           @* Сгенерированный пороль для пользователя *@
+                                            <td class="border px-4 py-2">
+                                                @t.BeginUser.ToString("dd.MM.yyyy")
+                                                @* <span x-show="!editing">@t.BeginUser.ToString("dd.MM.yyyy")</span>
+                                                <input x-show="editing" type="datetime" name="UserArctech.BeginUser" value="@t.BeginUser" /> *@
+                                            </td>
                                             <td class="border px-4 py-2">
                                                 <div class="inline-flex items-center rounded-md shadow-sm">
-                                                    <button class="text-gray-800  text-sm bg-white hover:bg-gray-300 border border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                                                    @* Кнопка для редактирования *@
+                                                    <button type="button" x-show="!editing" @@click="editing=true" class="text-gray-800  text-sm bg-white hover:bg-gray-300 border border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                                                  stroke="currentColor" class="w-6 h-6">
@@ -178,48 +219,109 @@
                                                         </span>
                                                         <span class="hidden md:inline-block">Edit</span>
                                                     </button>
-                                                    <button class="text-gray-800  text-sm bg-white hover:bg-orange-300 border-y border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                                 stroke="currentColor" class="w-6 h-6">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            </svg>
-                                                        </span>
-
-                                                        <span class="hidden md:inline-block">Delete</span>
-                                                    </button>
+                                                    @* Кнопка для сохранения данных и для отправления на контроллер; *@
+                                                    <form asp-controller="Admin_panell" asp-action="RiderUser" method="post" id="myForm" novalidate>
+                                                        <button @@click="addInputsAndSubmit(@t.Id)" type="button" x-show="editing" @* @@click="editing=false" *@ class="text-gray-800  text-sm bg-white hover:bg-gray-300 border border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                                                            Сохранить
+                                                        </button>
+                                                    </form>
+                                                    @* Кнопка для удаления пользователя *@
+                                                    <form method="post" asp-controller="Admin_panell" asp-action="DeletUser">
+                                                        <button class="text-gray-800  text-sm bg-white hover:bg-orange-300 border-y border-gray-100 rounded-l-lg rounded-tr-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+                                                            <img src=@Url.Content("~/image_project/icons8-мусор.svg") alt="Корзина с мусором" width="30" height="30" />
+                                                            <input type="hidden" asp-for="UserGeneral_Admin.Id" value="@t.Id" />
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
-
                                         </tr>
                                     }
-
                                     <!-- Add more rows as needed -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @*Скрип для нумерации строк в таблице*@
+                    @* Skript для того чтоб можно было отправить выше оформлинные данные *@
                     <script>
-                        $(document).ready(function () {
-                            $('#example').DataTable({
-                                "columnDefs": [{
-                                    "targets": 0, // Колонка для нумерации
-                                    "orderable": false, // Запрет сортировки
-                                    "searchable": false, // Запрет поиска
-                                    "render": function (data, type, row, meta) {
-                                        if (meta.row >= 1) { // Начиная с третьей строки (индекс строки 2)
-                                            return meta.row - 0; // Нумерация с "1"
-                                        }
-                                        return ""; // Пусто для первых двух строк
-                                    }
-                                }]
-                            });
-                        });
-                    </script>
+                        window.addInputsAndSubmit = function (userId) {
+                            // Создаём скрытые поля для передачи данных
+                            console.log("Функция успешно вызвана")
+                            const form = document.getElementById('myForm');
+                            if (!form) {
+                                console.error("форма с Id=myForm не была найдена ");
+                                return;
+                            }
+                            else console.log("Форма заполнена правильно.");
 
+                            //Передача значения Id;
+                            const IdInput = document.createElement('input');
+                            IdInput.type = 'hidden';
+                            IdInput.name = "UserGeneral_Admin.Id";
+                            IdInput.value = userId;
+                            
+                            // Передача табельного номера
+                            const Namer_for_projectInput = document.createElement('input');
+                            Namer_for_projectInput.type = 'hidden';
+                            Namer_for_projectInput.name = 'UserGeneral_Admin.Namer_for_project';
+                            const namer_for_projectInput = document.getElementById(`Namer_for_projectskript_${userId}`);
+                            if (namer_for_projectInput) {
+                                Namer_for_projectInput.value = namer_for_projectInput.value;
+                            }
+                            else {
+                                console.error("Элемент с данными Табельного номера не найден ");
+                            }
+
+                            //Передача имени пользователя
+                            const FistNameUserInput = document.createElement('input');
+                            FistNameUserInput.type = 'hidden';
+                            FistNameUserInput.name = 'UserGeneral_Admin.FistNameUser';
+                            const fistNameUser = document.getElementById(`FistNameUserskr_${userId}`);
+                            if (fistNameUser) {
+                                FistNameUserInput.value = fistNameUser.value;
+                            }
+                            else {
+                                console.error("Элемент с данными Имя пользователя не найден")
+                            }
+
+                            //Передача фамилии пользователя
+                            const SecondNameUserInput = document.createElement('input');
+                            SecondNameUserInput.type = 'hidden';
+                            SecondNameUserInput.name = 'UserGeneral_Admin.SecondNameUser';
+                            const secondNameUserInput = document.getElementById(`SecondNameUserskr_${userId}`);
+                            SecondNameUserInput.value = secondNameUserInput.value;
+
+                            // Передача роли пользователя
+                            const RoleUserInput = document.createElement('input');
+                            RoleUserInput.type = 'hidden';
+                            RoleUserInput.name = 'UserGeneral_Admin.RoleUser';
+                            const roleuser = document.getElementById(`RoleUserscr_${userId}`)
+                            RoleUserInput.value = roleuser.value;
+
+                            // Передача логина пользователя
+                            const NameUserInput = document.createElement('input');
+                            NameUserInput.type = 'hidden';
+                            NameUserInput.name = 'UserGeneral_Admin.NameUser';
+                            const nameuser = document.getElementById(`NameUserskr_${userId}`)
+                            NameUserInput.value = nameuser.value;
+
+                            // Передача пароля пользователя
+                            const passwordInput = document.createElement('input');
+                            passwordInput.type = 'hidden';
+                            passwordInput.name = 'UserGeneral_Admin.PasswordUser';
+                            const password = document.getElementById(`PasswordUserskr_${userId}`)
+                            passwordInput.value = password.value;
+
+                            form.appendChild(Namer_for_projectInput);
+                            form.appendChild(FistNameUserInput);
+                            form.appendChild(SecondNameUserInput);
+                            form.appendChild(RoleUserInput);
+                            form.appendChild(NameUserInput);
+                            form.appendChild(passwordInput);
+                            form.appendChild(IdInput);
+
+                            form.submit(); // Отправляем форму
+                        }
+                    </script>
                     <style>
                         .dataTables_length select {
                             width: 100px; /* Измените значение по вашему усмотрению */
@@ -227,15 +329,18 @@
                             font-size: 14px; /* Измените значение по вашему усмотрению */
                         }
                     </style>
+                    @* <script>
+                        $(document).ready(function () {
+                            $('#example').DataTable({
+                                // Add any customization options here
+                            });
+                        });
+                    </script> *@
+                </div>
+                @* Начало производственной таблицы *@
+                @Html.Partial("~/Views/Admin_Folder/_AdminPartTableProject.cshtml")
+                @* Конец производственной таблицы *@
 
-                </div>
-                <div id="tab2" class="tabcontent p-4 hidden">
-                    <h2 class="text-lg font-bold text-gray-800">Tab 2 Content</h2>
-                    <p class="mt-2 text-gray-700">
-                        Duis lobortis velit tellus, eget luctus tellus facilisis eget. Maecenas non massa
-                        varius, molestie lorem eget, molestie nisi. Suspendisse potenti.
-                    </p>
-                </div>
                 <div id="tab3" class="tabcontent p-4 hidden">
                     <h2 class="text-lg font-bold text-gray-800">Tab 3 Content</h2>
                     <p class="mt-2 text-gray-700">
@@ -247,7 +352,7 @@
 
             <style>
                 .active-tab {
-                @@apply bg-orange-600 border-orange-600 text-white;
+                    @@apply bg-orange-600 border-orange-600 text-white;
                 }
             </style>
 
@@ -292,7 +397,7 @@
 
     <footer class="text-gray-600 body-font bg-gray-800 w-full">
         <div class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
-            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <a asp-controller="Home" asp-action="IndexCookies" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                 <div class="text-white bg-orange-600 border-0 py-1 px-8 focus:outline-none hover:bg-orange-500 rounded-tr-3xl rounded-bl-3xl round text-lg">
                     <div style="vertical-align: inherit;">
                         <div style="vertical-align: inherit;">ARCTECH</div>

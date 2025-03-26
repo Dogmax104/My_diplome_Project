@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Reflection.Emit;
 
 namespace Arctech_Manufaction_Menedgment.Data
 {
@@ -36,7 +37,8 @@ namespace Arctech_Manufaction_Menedgment.Data
             modelBuilder.Entity<ModelFileClient>()
                 .HasOne(p => p.ProgectModel1) // связь одного
                 .WithMany(t => t.ClientFileProjectModel) // может быть много по этому ссылается на созданную коллекцию;
-                .HasForeignKey(d => d.IdProjectModel104); // созданный внешний ключ;
+                .HasForeignKey(d => d.IdProjectModel104) // созданный внешний ключ;
+                .OnDelete(DeleteBehavior.Cascade);  // Для автоматического удаления из базы данных привязаного файла;
         }
     }
 }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Arctech_Manufaction_Menedgment")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3eb7b5dc72e5b3f5b46049e5ae907761c760bf07")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e39df39adede1392657db9120051ad19ebaba37e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Arctech_Manufaction_Menedgment")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Arctech_Manufaction_Menedgment")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

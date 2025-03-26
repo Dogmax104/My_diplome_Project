@@ -6,6 +6,7 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div> *@
+
 @model Arctech_Manufaction_Menedgment.Models.UserArctech;
 
 <section class="text-gray-600 body-font bg-gray-100 text-center">
@@ -25,31 +26,45 @@
                 </div>
             </p>
         </div>
-        <form asp-controller="Home" asp-action="Create_Bd_User" method="post" class="lg:px-32 py-8">
-            <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-                <div class="relative flex-grow w-full">
-                    <label for="NameUser" class="leading-7 text-sm text-gray-600">
-                        <font style="vertical-align: inherit;">
-                            <font  style="vertical-align: inherit;">  Логин</font>
-                        </font>
-                    </label>
-                    <input asp-for="NameUser" type="text" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-600 focus:bg-transparent focus:ring-2 focus:ring-orange-300 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        @* Логика для того чтоб можно было войти в приложение без воода логина и пороля; *@
+        @if (ViewBag.Role == null)
+        {
+            <form asp-controller="Home" asp-action="Create_Bd_User" method="post" class="lg:px-32 py-8">
+                <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+                    <div class="relative flex-grow w-full">
+                        <label for="NameUser" class="leading-7 text-sm text-gray-600">
+                            <font style="vertical-align: inherit;">
+                                <font  style="vertical-align: inherit;">  Логин</font>
+                            </font>
+                        </label>
+                        <input asp-for="NameUser" type="text" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-600 focus:bg-transparent focus:ring-2 focus:ring-orange-300 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                    <div class="relative flex-grow w-full">
+                        <label for="PasswordUser" class="leading-7 text-sm text-gray-600">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">Пароль</font>
+                            </font>
+                        </label>
+                        <input asp-for="PasswordUser" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-600 focus:bg-transparent focus:ring-2 focus:ring-orange-300 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                    <button class="text-white bg-orange-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-800 rounded-l-lg rounded-tr-lg shadow-2xl text-lg">
+                        <div style="vertical-align: inherit;">
+                            <div style="vertical-align: inherit;">ВОЙТИ</div>
+                        </div>
+                    </button>
                 </div>
-                <div class="relative flex-grow w-full">
-                    <label for="PasswordUser" class="leading-7 text-sm text-gray-600">
-                        <font style="vertical-align: inherit;">
-                            <font style="vertical-align: inherit;">Пароль</font>
-                        </font>
-                    </label>
-                    <input asp-for="PasswordUser" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-orange-600 focus:bg-transparent focus:ring-2 focus:ring-orange-300 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                </div>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="TaskPage" asp-action="MetodBack" method="post" class="lg:px-32 py-8">
                 <button class="text-white bg-orange-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-800 rounded-l-lg rounded-tr-lg shadow-2xl text-lg">
                     <div style="vertical-align: inherit;">
                         <div style="vertical-align: inherit;">ВОЙТИ</div>
                     </div>
                 </button>
-            </div>
-        </form>
+            </form>
+        }
     </div>
 
     <div class="container px-5 py-12 mx-auto">

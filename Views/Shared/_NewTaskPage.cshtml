@@ -34,7 +34,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3 form-group" >
                 <label asp-for="NameProjectModel" class="form-label .form-group label ">Имя проекта/ Заказчика</label>
-                <input asp-for="NameProjectModel" type="text" class="form-control   .form-group input" id="formGroupExampleInput" placeholder="Имя проекта/заказчика">
+                <input name="NameProjectModel" type="text" class="form-control   .form-group input" id="formGroupExampleInput" placeholder="Имя проекта/заказчика">
                 <span asp-validation-for="NameProjectModel" class="text-danger"></span>
             </div>
             <div class="mb-3 form-group">
@@ -55,7 +55,6 @@
             <div class="mb-3 form-group">
                 <label asp-for="ClientFileProjectModel" class="form-label  .form-group label">Прилогаемые файлы</label>
                 <input  type="file" name="file" class="btn btn-primary" multiple>
-                </input>
             </div>
             @* Заказ в производство radiobatton;*@
             <div class="mb-3 form-group">
@@ -71,48 +70,6 @@
                 <input asp-for="NotesProjectModel" type="text" class="form-control .form-group input " id="Примечание">
             </div>
 
-
-
-
-            @* Загрузка файла для согласования; *@
-            @* <div class="mb-3 form-group">
-                <label asp-for="OrderInManufaction" class="form-label  .form-group label">Файлы для согласования</label>
-                <a href="@Url.Action("DownloadPdf", "Project")" class="btn btn-primary">
-                    Download PDF
-                </a>
-            </div> 
-            !!!!! не нужно т.к. файлы для согласования будут в общей таблице для конструктора!!!!!
-            *@
-
-
-
-            @* Это кнопки для сохранения файла; *@
-            
-
-
-            @* <div class="form-group form-control" id="floatingInputValue" placeholder="Имя проекта" >
-                <label asp-for="NameProjectModel" class="control-label"></label>
-                <input asp-for="NameProjectModel" class="form-control" />
-                <span asp-validation-for="NameProjectModel" class="text-danger"></span>
-            </div> *@
-
-
-
-            @* <div class="form-group">
-                <label asp-for="ClientNameProjectModel" class="control-label"></label>
-                <input asp-for="ClientNameProjectModel" class="form-control" />
-                <span asp-validation-for="ClientNameProjectModel" class="text-danger"></span>
-            </div> *@
-            @* <div class="form-group">
-                <label asp-for="BeginTime" class="control-label"></label>
-                <input asp-for="BeginTime" class="form-control" />
-                <span asp-validation-for="BeginTime" class="text-danger"></span>
-            </div> *@
-            @* <div class="form-group">
-                <label asp-for="CoordinationTime" class="control-label"></label>
-                <input asp-for="CoordinationTime" class="form-control" />
-                <span asp-validation-for="CoordinationTime" class="text-danger"></span>
-            </div> *@
             
             <div class="mb-3  form-group">
                 <input type="submit" value="Create" class="btn btn-primary form-label  .form-group label " />

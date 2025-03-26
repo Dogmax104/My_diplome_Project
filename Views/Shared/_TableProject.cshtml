@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+<title>_TableProject</title>
 @{
 }
 @model List<ProgectModel>
@@ -35,7 +36,10 @@
                 <th class="px-4 py-2">Заказчик:фирма/ответственное лицо за заказ/телефон/адрес</th>
                 <th class="px-4 py-2">Дата поступления заказа</th>
                 <th class="px-4 py-2">Дата согласования заказа</th>
-                <th class="px-4 py-2">Прилагаемые файлы</th>
+                @if (ViewBag.Role != "shop_worker")
+                {
+                    <th class="px-4 py-2">Прилагаемые файлы</th>
+                }
                 <th class="px-4 py-2">Файл для согласования</th>
                 <th class="px-4 py-2">Заказ в производство</th>
                 <th class="px-4 py-2">Статус заказа</th>
@@ -62,19 +66,24 @@
                             <td class="border px-4 py-2">@item.ClientNameProjectModel</td>
                             <td class="border px-4 py-2">@item.BeginTime.ToString("dd.MM.yy")</td>
                             <td class="border px-4 py-2">@item.CoordinationTime.ToString("dd.MM.yy")</td>
-                            <td class="border px-4 py-2">
-                                @foreach (var files in item.ClientFileProjectModel) @*передача файлов*@
-                                {
-                                    <ul style="list-style-type" >
-                                        <list>@files.NameModelFileClient</list>
-                                    </ul>
-                                }
-                            </td>
-
+                            @if (ViewBag.Role != "shop_worker")
+                            {
+                                <td class="border px-4 py-2">
+                                    @foreach (var files in item.ClientFileProjectModel) @*передача файлов*@
+                                    {
+                                        <ul style="list-style-type" >
+                                            <list>@files.NameModelFileClient</list>
+                                        </ul>
+                                    }
+                                </td>
+                            }
                             @*Начало .. Файлы для согласования*@
                             <td class="border px-4 py-2">Нет файлов
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
-                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple>
+                                @if (ViewBag.Role != "shop_worker" && ViewBag.Role != "menedger")
+                                {
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files"></label>
+                                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple>
+                                }
                             </td>  @*Конец .. Файлы для согласования*@
                             
                                 @*Запуск в производство*@
@@ -89,7 +98,7 @@
                             @*Блок статуса заказа*@
                             <td class="border px-4 py-2 align-middle text-xs whitespace-nowrap p-4">
                                 <div class="flex items-center">
-                                        <span class="mr-2 text-xs font-medium">@item.StatusOrder%</span>
+                                    <span class="mr-2 text-xs font-medium">@item.StatusOrder%</span>
                                     <div class="relative w-full">
                                         <div class="w-full bg-gray-200 rounded-sm h-2">
                                             <div class="bg-cyan-600 h-2 rounded-sm" style="width: @item.StatusOrder%"></div>

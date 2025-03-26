@@ -20,13 +20,14 @@ namespace Arctech_Manufaction_Menedgment.Controllers
 
 
         // Метод с помощью которого будет создаваться экзэмпляр модели;
+        [HttpPost]
         [RequestSizeLimit (524128800)]
-        public async Task <IActionResult> CreateProjectModel(ProgectModel model, List<IFormFile> file)
+        public async Task <IActionResult> CreateProjectModel(ProgectModel model, List<IFormFile> file, string PageadminFlag)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("_NewTaskPage");
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("_NewTaskPage");
+            //}
             // Создать модель;
             ProgectModel modelDataBase= new ProgectModel();
             modelDataBase.NameProjectModel = model.NameProjectModel; // Присвоенно имя модели;
@@ -37,7 +38,6 @@ namespace Arctech_Manufaction_Menedgment.Controllers
             modelDataBase.NotesProjectModel = model.NotesProjectModel; // Заполнение коментарий для заказа;
             modelDataBase.StatusOrder=model.StatusOrder; // Заполнение данных о статусе;
             modelDataBase.OrderInManufaction = model.OrderInManufaction; // Данные о запуске в производство либо нет;
-
 
             // нужно создать коллекцию с modelDataBase;
             modelDataBase.ClientFileProjectModel = new List<ModelFileClient>();
@@ -65,7 +65,11 @@ namespace Arctech_Manufaction_Menedgment.Controllers
             await _db.SaveChangesAsync(); // Сохранение в базе данных;
             // Список для того, чтоб можно было передать List
             var projectList = _db.ProgectModels.Include(b=>b.ClientFileProjectModel).ToList();
-            return View("_TableProject",projectList);
+            if (PageadminFlag != null)
+            {
+                return RedirectToAction("OpenAdminPanel", "Admin_panell");
+            }
+            return RedirectToAction("MetodBack");
         }
 
 
@@ -81,7 +85,11 @@ namespace Arctech_Manufaction_Menedgment.Controllers
         //Метод который возвратит заново таблицу;
         public IActionResult MetodBack()
         {
-            return View("_TableProject");
+            // Получение и отправки Cookies
+            string? cookie = Request.Cookies["Role"];
+            ViewBag.Role = cookie;
+            var projectList = _db.ProgectModels.Include(b => b.ClientFileProjectModel).ToList();
+            return View("_TableProject", projectList);
         }
     }
 }

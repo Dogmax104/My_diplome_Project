@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<title>_Layout</title>
 
 <html lang="en">
 @if (IsSectionDefined("Scripts"))
@@ -29,7 +30,7 @@
 <body>
     <header class="text-white body-font bg-gray-800" >
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a asp-action="Index" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <a asp-action="StartAfterPage" asp-controller="Home" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                 <div class="text-white bg-orange-600 border-0 py-1 px-8 focus:outline-none hover:bg-orange-500 rounded-tr-3xl rounded-bl-3xl round text-lg">
                     <div style="vertical-align: inherit;">
                         <div style="vertical-align: inherit;">ARCTECH</div>
@@ -37,20 +38,23 @@
                 </div>
             </a>
             <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                @if (ViewBag.Role == "admin")
+                {
                     @*Кнопка для входа в администраторскую понель*@
-                <a class="mr-5 hover:text-gray-400" asp-controller="Admin_panell" asp-action="OpenAdminPanel">
-                        <div style="vertical-align: inherit;">
-                            <div style="vertical-align: inherit;">ADMIN PANEL</div>
-                        </div>
+                    <a class="mr-5 hover:text-gray-400" asp-controller="Admin_panell" asp-action="OpenAdminPanel">
+                            <div style="vertical-align: inherit;">
+                                <div style="vertical-align: inherit;">ADMIN PANEL</div>
+                            </div>
                     </a>
-                @*@if (ViewBag.Role == "admin")
-                {*@
+                }    
+                @if (ViewBag.Role == "menedger")
+                {
                     <a class="mr-5 hover:text-gray-400" asp-controller="TaskPage" asp-action="NewTaskPage">
                         <div style="vertical-align: inherit;" >
                             <div style="vertical-align: inherit;">Создать заказ</div>
                         </div>
                     </a>
-                @*}*@
+                }
                 <a asp-controller="Admin_panell" asp-action="OpenAdminPanel" class="mr-5 hover:text-gray-400">
                     <div style="vertical-align: inherit;">
                         <div style="vertical-align: inherit;">ТЕКУЩИЙ</div>
@@ -84,7 +88,7 @@
 
     <footer class="text-gray-600 body-font bg-gray-800">
         <div class="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
-            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <a asp-action="StartAfterPage" asp-controller="Home" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                 <div class="text-white bg-orange-600 border-0 py-1 px-8 focus:outline-none hover:bg-orange-500 rounded-tr-3xl rounded-bl-3xl round text-lg">
                     <div style="vertical-align: inherit;">
                         <div style="vertical-align: inherit;">ARCTECH</div>
@@ -96,9 +100,9 @@
                     <div style="vertical-align: inherit;">© 2020 Arctech — </div>
                 </div>
                 <a class="ml-3 text-gray-500 px-8">
-                    +0 999 888 77 66
+                    +7(977) 8117434
                 </a>
-                </span>
+            </p>
         </div>
     </footer>
 
